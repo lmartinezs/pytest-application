@@ -23,7 +23,8 @@ jobs:
       run: |
         pip install pytest
         pip install pytest-cov
-        pytest --doctest-modules --junitxml=junit/test-results.xml --cov-report=xml --cov-report=html --cov=com | tee pytest-coverage.txt
+        pytest --cov=com capture=tee-sys --cov-report=term-missing:skip-covered | tee pytest-coverage.txt
+        pytest --doctest-modules --junitxml=junit/test-results.xml --cov-report=xml --cov-report=html --cov=com
       # Publish the results of testing as a graphical summary in the conversation of the pull request that triggered the action (from the previous section)
     - name: Pytest coverage comment
       uses: MishaKav/pytest-coverage-comment@main
