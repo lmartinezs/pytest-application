@@ -19,6 +19,21 @@ jobs:
       with:
         python-version: '3.8.x'
       # Install pytest and pytest-cov (code coverage) in the virtual runner to run the tests. pytest also summarises the test results in an xml file which will be used by the action in the next step to generate some graphics and post as comment at the commit/pull request that triggers the automated tesing workflow
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install flake8 pytest pytest-cov
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+    - name: Build coverage file
+      run: |
+        pytest --junitxml=pytest.xml --cov-report=term-missing:skip-covered --cov=app tests/ | tee pytest-coverage.txt
+
     - name: Pytest coverage comment
       uses: MishaKav/pytest-coverage-comment@main
       with:
