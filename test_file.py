@@ -17,7 +17,7 @@ class Rectangle:
 #def test_normal_case():
 #    rectangle = Rectangle(2, 3)
 #    assert rectangle.get_area() == 6, "incorrect area"
-
+# comment
 
 class TestGetAreaRectangle:
     def test_normal_case(self):
