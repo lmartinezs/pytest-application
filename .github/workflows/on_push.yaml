@@ -22,8 +22,8 @@ jobs:
     - name: Pytest coverage comment
       uses: MishaKav/pytest-coverage-comment@main
       with:
-        pytest-coverage-path: ./pytest/pytest-coverage.txt
-        junitxml-path: ./pytest/pytest.xml
+        pytest-coverage-path: ./pytest-coverage.txt
+        junitxml-path: ./pytest.xml
     # - name: Test with pytest
     #   run: |
     #     pip install pytest
