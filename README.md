@@ -1,3 +1,3 @@
 # pytest-application
 
-On push to master, executes tests
+On push to master, executes tests test
