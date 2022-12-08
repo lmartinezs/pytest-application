@@ -1,6 +1,6 @@
 name: My Pytest Coverage Comment
 on:
-  push:
+  pull_request:
 
 permissions:
   contents: read
