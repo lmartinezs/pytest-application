@@ -1,0 +1,30 @@
+name: Test
+
+on:
+  push:
+    branches:
+    - develop
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      # Pick the python version with which you want the tests to be carried out. 'x' allows github to pick the lastest stable version available
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.8.x'
+      # Install pytest and pytest-cov (code coverage) in the virtual runner to run the tests. pytest also summarises the test results in an xml file which will be used by the action in the next step to generate some graphics and post as comment at the commit/pull request that triggers the automated tesing workflow
+    - name: Test with pytest
+      run: |
+        pip install pytest
+        pip install pytest-cov
+        pytest --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
+      # Publish the results of testing as a graphical summary in the conversation of the pull request that triggered the action (from the previous section)
+    - name: Publish Unit Test Results
+      uses: EnricoMi/publish-unit-test-result-action@v1
+      if: always()
+      with:
+        files: junit/test-results.xml
+        GITHUB_TOKEN: $
