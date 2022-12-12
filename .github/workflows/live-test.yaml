@@ -36,9 +36,17 @@ jobs:
 
       - name: Build coverage file
         run: |
-            pytest --cov=./ --junitxml=tests/pytest.xml --cov-report 'xml:tests/coverage.xml'
+            pytest --cov=./ --junitxml=pytest.xml --cov-report 'xml:coverage.xml'
             more tests/pytest.xml
             more tests/coverage.xml
+
+      - name: Pytest coverage comment
+        id: coverageComment
+        uses: MishaKav/pytest-coverage-comment@main
+        with:
+          pytest-xml-coverage-path: ./coverage.xml
+          junitxml-path: ./pytest.xml
+          coverage-path-prefix: ./tests/
       - name: Check the output coverage
         run: |
           echo "Coverage Percantage - ${{ steps.coverageComment.outputs.coverage }}"
@@ -54,10 +62,3 @@ jobs:
           echo "Coverage Tests - ${{ steps.coverageComment.outputs.tests }}"
           echo "Coverage Time - ${{ steps.coverageComment.outputs.time }}"
           echo "Not Success Test Info - ${{ steps.coverageComment.outputs.notSuccessTestInfo }}"
-
-      - name: Pytest coverage comment
-        uses: MishaKav/pytest-coverage-comment@main
-        with:
-          pytest-xml-coverage-path: ./tests/coverage.xml
-          junitxml-path: ./tests/pytest.xml
-          coverage-path-prefix: ./tests/
