@@ -45,3 +45,4 @@ jobs:
         with:
           pytest-xml-coverage-path: ./tests/coverage.xml
           junitxml-path: ./tests/pytest.xml
+          coverage-path-prefix: ./tests
