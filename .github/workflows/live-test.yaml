@@ -37,6 +37,7 @@ jobs:
       - name: Build coverage file
         run: |
             pytest --cov=./ --junitxml=pytest.xml --cov-report 'xml:coverage.xml'
+            more coverage.xml
 
       - name: Pytest coverage comment
         uses: MishaKav/pytest-coverage-comment@main
